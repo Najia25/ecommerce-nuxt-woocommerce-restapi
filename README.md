@@ -1,5 +1,7 @@
 # woocommerce-restapi-nuxt
 
+E-commerce site with nuxtJs front-end and woo-coomerce rest api backend
+
 ## Build Setup
 
 ```bash
