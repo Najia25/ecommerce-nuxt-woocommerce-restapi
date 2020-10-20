@@ -1,38 +1,31 @@
 <template>
-  <v-text-field
-    solo
-    :flat="flat"
-    label="Search for products..."
-    prepend-inner-icon="mdi-magnify"
-    :background-color="bgColor"
-    dense
-    class="mt-5"
-    @click="clickListener"
-    @blur="blurListener"
-  />
+  <div class="w-50">
+    <v-text-field
+      solo
+      :flat="flat"
+      label="Search for products..."
+      dense
+      hide-details
+      prepend-inner-icon="mdi-magnify"
+      @click="flat = !flat"
+    />
+  </div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      bgColor: '#EEEEEE',
       flat: true
     }
   },
   methods: {
-    blurListener () {
-      this.bgColor = '#EEEEEE'
-      this.flat = true
-    },
-    clickListener () {
-      this.bgColor = '#fff'
-      this.flat = false
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.w-50 {
+  width: 35%;
+}
 </style>

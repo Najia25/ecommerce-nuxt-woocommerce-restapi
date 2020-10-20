@@ -37,6 +37,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '~plugins/breakpoint.js'
   ],
   /*
   ** Auto import components
@@ -73,13 +74,8 @@ export default {
       light: true,
       themes: {
         light: {
-          primary: colors.pink.darken4,
-          accent: colors.pink.accent4,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          primary: colors.cyan.darken3,
+          accent: colors.cyan.accent4
         }
       }
     }
@@ -89,6 +85,10 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   serverMiddleware: ['~/api/index'],
+  publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL,
+    graphqlUrl: process.env.GRAPHQL_URL
+  },
   build: {
   }
 }
