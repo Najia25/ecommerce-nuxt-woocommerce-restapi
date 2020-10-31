@@ -4,7 +4,7 @@
     <NavigationDrawer ref="drawer" />
     <v-main>
       <v-container fluid class="mx-0 px-0 px-lg-3 mx-lg-5">
-        <nuxt keep-alive/>
+        <nuxt />
       </v-container>
     </v-main>
     <v-footer app />

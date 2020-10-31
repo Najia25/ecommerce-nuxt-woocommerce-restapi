@@ -5,7 +5,7 @@
   >
     <v-img
       class="white--text align-end"
-      :src="product.images[0].src"
+      :src="product.image.sourceUrl"
       :alt="product.name"
     />
     <v-card-title>

@@ -4,18 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "npm run build-possibleTypes && nuxt build",
     "start": "nuxt start",
     "export": "nuxt export",
     "serve": "nuxt serve",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "build-possibleTypes": "node schemaQuery.js"
   },
   "dependencies": {
+    "@nuxtjs/apollo": "^4.0.1-rc.4",
     "@nuxtjs/axios": "^5.11.0",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "express": "^4.17.1",
+    "graphql-tag": "^2.11.0",
     "nuxt": "^2.13.0"
   },
   "devDependencies": {
