@@ -3,11 +3,13 @@
     class="mb-5"
     max-width="400"
   >
+  <nuxt-link :to="{name: 'product-slug', params: {slug: `${product.slug}-${product.id}`}}">
     <v-img
       class="white--text align-end"
       :src="product.image.sourceUrl"
       :alt="product.name"
     />
+  </nuxt-link>
     <v-card-title>
       {{ product.name }}
     </v-card-title>
