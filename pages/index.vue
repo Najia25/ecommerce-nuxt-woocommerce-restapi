@@ -14,11 +14,17 @@
 
 import Product from '@/components/content/Product'
 import gql from 'graphql-tag'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     Product
   },
+computed: {
+  ...mapState({
+    cartData: state => state.cart.cart
+  })
+},
   data () {
     return {
       products: [],
@@ -84,9 +90,9 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log(this.products)
-    console.log(this.productCategories)
-  }
+  // mounted () {
+  //   console.log(this.$store.state.cart)
+  //   console.log(this.productCategories)
+  // }
 }
 </script>

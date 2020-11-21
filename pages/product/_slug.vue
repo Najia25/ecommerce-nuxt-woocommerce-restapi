@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="$apollo.queries.product.loading">...Loading</div>
-    <div v-else>{{ product.name }}</div>
+    <div v-else>{{ product }}</div>
+
   </div>
 </template>
 

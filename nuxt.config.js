@@ -28,7 +28,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    '~plugins/breakpoint.js'
+    '~plugins/breakpoint.js',
+    '~plugins/cartData.client.js'
   ],
   /*
   ** Auto import components

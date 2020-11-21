@@ -14,7 +14,7 @@
       {{ product.name }}
     </v-card-title>
     <v-card-subtitle class="pb-0">
-      ${{ product.price }}
+      {{ product.price }}
     </v-card-subtitle>
     <v-card-actions>
       <v-btn
@@ -23,20 +23,18 @@
       >
         Quick View
       </v-btn>
-
-      <v-btn
-        color="primary"
-        text
-      >
-        Add to cart
-      </v-btn>
+      <AddToCartButton :product="product"/>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import AddToCartButton from '../cart/AddToCartButton'
 export default {
-  props: ['product']
+  props: ['product'],
+  components: {
+    AddToCartButton
+  }
 }
 </script>
 
