@@ -1,9 +1,9 @@
 export const state = () => ({
-  cart: []
+  cart: null
 })
 
 export const mutations = {
   add (state, payload) {
-    state.cart.push(payload)
+    state.cart = payload
   }
 }

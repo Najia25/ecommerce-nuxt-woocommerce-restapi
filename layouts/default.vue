@@ -3,7 +3,14 @@
     <PrimaryAppBar @toggle-drawer="$refs.drawer.drawer = !$refs.drawer.drawer" />
     <NavigationDrawer ref="drawer" />
     <v-main>
-      <v-container fluid class="mx-0 px-0 px-lg-3 mx-lg-5">
+      <CartIconLgScreen @click.native="isOpen = true" v-if="!isOpen"/>
+      <transition
+      enter-active-class="animate__animated animate__slideInRight"
+      leave-active-class="animate__animated animate__slideOutRight"
+      >
+      <Cart v-if="isOpen" @cart-closed="isOpen = false"/>
+      </transition>
+      <v-container fluid :class="{'cart-padding': isOpen}">
         <nuxt />
       </v-container>
     </v-main>
@@ -12,36 +19,51 @@
 </template>
 
 <script>
+import CartIconLgScreen from '@/components/cart/CartIconLgScreen'
+import Cart from '@/components/cart/Cart'
 import PrimaryAppBar from '@/components/base-layout/PrimaryAppBar'
 import NavigationDrawer from '@/components/base-layout/NavigationDrawer'
 
 export default {
   components: {
     PrimaryAppBar,
-    NavigationDrawer
+    NavigationDrawer,
+    CartIconLgScreen,
+    Cart
   },
   data () {
     return {
-      // drawer: null
+      isOpen: false
     }
+  },
+  methods: {
+    // toggleModal () {
+    //   this.isOpen = !this.isOpen
+    // }
   }
 }
 </script>
 <style lang="scss">
-
 .v-main {
   padding-top: 56px !important;
+}
+
+.container.container--fluid.cart-padding {
+  padding-right: 312px;
 }
 .v-toolbar {
   height: 56px !important;
 }
 .v-toolbar__content {
-  padding-left: 0px;
-  padding-right: 0px;
   height: 56px !important;
 }
 .v-toolbar__extension {
   display: none;
+}
+
+.animate__animated.animate__slideInRight, .animate__animated.animate__slideOutRight {
+  --animate-duration: 250ms;
+  --animate-delay: 100ms;
 }
 
 @media (min-width: 1200px) {
@@ -51,10 +73,6 @@ export default {
   .v-toolbar {
   height: 96px !important;
 }
-  .v-toolbar__content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
   .v-toolbar__extension {
     display: flex;
     justify-content: center;

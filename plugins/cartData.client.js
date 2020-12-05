@@ -5,5 +5,5 @@ mutate setcart
 
 export default ({ store }) => {
   const cart = localStorage.getItem('cart')
-  store.commit('cart/add', cart)
+  store.commit('cart/add', JSON.parse(cart))
 }

@@ -3,9 +3,9 @@
     app
     extension-height="40"
   >
-    <v-container fluid class="mx-0 px-0 px-lg-3 mx-lg-5">
-      <v-row class="d-flex justify-center mx-0 mx-lg-3">
-        <v-col cols="12" xl="10" class="d-flex align-center px-0 px-lg-4">
+    <v-container fluid>
+      <v-row class="d-flex justify-center">
+        <v-col class="d-flex align-center px-0 px-lg-5 mx-0 mx-lg-5">
           <v-app-bar-nav-icon class="show-in-mobile-only" @click.stop="$emit('toggle-drawer')" />
           <SearchOverlay v-if="showSearchOverlay" />
           <v-btn
@@ -27,11 +27,9 @@
           <SearchBar class="d-none hide-in-mobile" />
           <v-spacer />
           <v-btn icon>
-            <v-icon>mdi-account</v-icon>
+            <v-icon color="primary">mdi-account</v-icon>
           </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-cart</v-icon>
-          </v-btn>
+          <CartIconSmScreen />
         </v-col>
       </v-row>
     </v-container>
@@ -45,12 +43,14 @@
 import SecondaryAppBar from '@/components/base-layout/SecondaryAppBar'
 import SearchBar from '@/components/base-layout/SearchBar'
 import SearchOverlay from '@/components/base-layout/SearchOverlay'
+import CartIconSmScreen from '@/components/cart/CartIconSmScreen'
 
 export default {
   components: {
     SecondaryAppBar,
     SearchBar,
-    SearchOverlay
+    SearchOverlay,
+    CartIconSmScreen
   },
   data () {
     return {
@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
 
 .overlay-style {
-  padding: 0 !important;
+  // padding: 0 !important;
   min-width: 48px !important;
   width: 48px !important;
   height: 48px !important;

@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mb-5"
+    class="mb-5 mr-5 product-card"
     max-width="400"
   >
   <nuxt-link :to="{name: 'product-slug', params: {slug: `${product.slug}-${product.id}`}}">
@@ -39,5 +39,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

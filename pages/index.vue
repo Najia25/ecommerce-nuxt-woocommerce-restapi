@@ -1,11 +1,11 @@
 <template>
-  <v-row class="d-flex justify-center mx-0 mx-lg-3">
-    <v-col cols="12" xl="10" class="flex-wrap justify-space-around d-flex px-0 px-lg-4">
-        <Product
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-        />
+  <v-row class="d-flex justify-center">
+    <v-col class="flex-wrap justify-center d-flex">
+      <Product
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+      />
     </v-col>
   </v-row>
 </template>
@@ -14,17 +14,11 @@
 
 import Product from '@/components/content/Product'
 import gql from 'graphql-tag'
-import { mapState } from 'vuex'
 
 export default {
   components: {
     Product
   },
-computed: {
-  ...mapState({
-    cartData: state => state.cart.cart
-  })
-},
   data () {
     return {
       products: [],
@@ -90,9 +84,8 @@ computed: {
       }
     }
   },
-  // mounted () {
-  //   console.log(this.$store.state.cart)
-  //   console.log(this.productCategories)
-  // }
+  mounted () {
+    console.log(this.products)
+  }
 }
 </script>

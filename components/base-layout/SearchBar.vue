@@ -1,5 +1,5 @@
 <template>
-  <div class="w-50">
+  <v-responsive max-width="300">
     <v-text-field
       solo
       :flat="flat"
@@ -9,7 +9,7 @@
       prepend-inner-icon="mdi-magnify"
       @click="flat = !flat"
     />
-  </div>
+  </v-responsive>
 </template>
 
 <script>
@@ -23,9 +23,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.w-50 {
-  width: 35%;
-}
-</style>
