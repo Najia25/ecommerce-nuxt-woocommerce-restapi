@@ -1,13 +1,14 @@
 <template>
   <v-card
   class="cart"
-  max-width="320"
+  min-width="322px"
   >
 
     <div class="d-flex cart-header pa-2 align-center">
       <div class="d-flex align-center">
         <v-icon class="mr-2">mdi-shopping-outline</v-icon>
-        <p class="mb-0">{{ cart.totalProductsCount }} Items</p>
+        <p class="mb-0" v-if="cart">{{ cart.totalProductsCount }} Items</p>
+        <p class="mb-0" v-else>0 items</p>
       </div>
       <v-btn icon @click="cartClosed">
         <v-icon>mdi-close</v-icon>
@@ -23,7 +24,7 @@
         :length="cart.products.length"
       />
     </v-list>
-    <div v-else>
+    <div v-else class="cart-body">
       <p>No items available in the cart</p>
       <button to="/" color="primary">Start shopping</button>
     </div>

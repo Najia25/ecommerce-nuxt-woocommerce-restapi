@@ -33,6 +33,7 @@
           <v-icon
             small
             color="grey lighten-1"
+            @click="handleRemoveItem"
           >
             mdi-close
           </v-icon>
@@ -47,8 +48,9 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
-import { updateCart } from '@/functions'
+import { mapState } from 'vuex'
+import { updateCart, removeItemFromCart } from '@/functions'
+import cloneDeep from 'lodash.clonedeep'
 export default {
   props: ['cartItem', 'index', 'length'],
   data () {
@@ -57,9 +59,14 @@ export default {
     }
   },
   watch: {
-    cartItem () {
+    cart () {
       this.qty = this.cartItem.qty
     }
+  },
+  computed: {
+    ...mapState({
+      cart: state => state.cart.cart
+    })
   },
   methods: {
     handleQtyChange (isAdded) {
@@ -68,12 +75,21 @@ export default {
       } else {
         this.qty = this.qty - 1
       }
-      if (process.browser) {
-        let existingCart = localStorage.getItem('cart')
-        existingCart = JSON.parse(existingCart)
-        const updatedCart = updateCart(existingCart, this.cartItem, false, this.qty)
+      if (this.cart !== null) {
+        // let existingCart = localStorage.getItem('cart')
+        // existingCart = JSON.parse(existingCart)
+
+        // due to object reference, passing this.cart gets cart state mutated in function.js outside of mutation
+        // hence use new object and pass it
+
+        const exisitingCartObj = cloneDeep(this.cart)
+        const updatedCart = updateCart(exisitingCartObj, this.cartItem, false, this.qty)
         this.$store.commit('cart/add', updatedCart)
       }
+    },
+    handleRemoveItem () {
+      const updatedCart = removeItemFromCart(this.cartItem.productId)
+      this.$store.commit('cart/add', updatedCart)
     }
   }
 }

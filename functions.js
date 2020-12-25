@@ -43,7 +43,6 @@ export const updateCart = (existingCart, product, qtyToBeAdded, newQty = false) 
   }
 
   const total = updatedProducts.reduce(addPriceAndQty, { totalPrice: 0, qty: 0 })
-  console.log(total)
   const updatedCart = {
     products: updatedProducts,
     totalProductsCount: parseInt(total.qty),
@@ -51,7 +50,6 @@ export const updateCart = (existingCart, product, qtyToBeAdded, newQty = false) 
   }
   console.log(updatedCart)
   localStorage.setItem('cart', JSON.stringify(updatedCart))
-
   return updatedCart
 }
 
@@ -85,6 +83,36 @@ export const isProductInCart = (existingProductsInCart, productId) => {
   return existingProductsInCart.findIndex(itemThatExists)
 }
 
-// export const removeItemFromCart = (productId) = {
+export const removeItemFromCart = (productId) => {
+  // take cart from state - alternative
+  let existingCart = localStorage.getItem('cart')
+  existingCart = JSON.parse(existingCart)
+  // if cart has just 1 element delete cart
 
-// }
+  if (existingCart.products.length === 1) {
+    localStorage.removeItem('cart')
+    return null
+  } else {
+    // check if its an existing product
+
+    const productExistIndex = isProductInCart(existingCart.products, productId)
+
+    // if product to be removed exists
+    if (productExistIndex > -1) {
+      const productToBeRemoved = existingCart.products[productExistIndex]
+      console.warn(productToBeRemoved)
+      const qtyToBeRemoved = productToBeRemoved.qty
+      const priceToBeRemoved = productToBeRemoved.totalPrice
+
+      // remove that product from the array and update total price and total quantity
+      const updatedCart = existingCart
+      updatedCart.products.splice(productExistIndex, 1)
+      updatedCart.totalProductsCount = updatedCart.totalProductsCount - qtyToBeRemoved
+      updatedCart.totalProductPrice = updatedCart.totalProductPrice - priceToBeRemoved
+      localStorage.setItem('cart', JSON.stringify(updatedCart))
+      return updatedCart
+    } else {
+      return existingCart
+    }
+  }
+}

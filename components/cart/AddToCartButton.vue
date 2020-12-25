@@ -13,14 +13,20 @@
 
 <script>
 import { addFirstProduct, updateCart } from '@/functions'
+import { mapState } from 'vuex'
 export default {
   props: ['product'],
+  computed: {
+    ...mapState({
+      cart: state => state.cart.cart
+    })
+  },
   methods: {
     handleAddToCart () {
       if (process.client) {
         let existingCart = localStorage.getItem('cart')
 
-        if (existingCart) {
+        if (this.cart !== null) {
           // update exisiting cart
           existingCart = JSON.parse(existingCart)
           const qtyToBeAdded = 1
@@ -29,7 +35,6 @@ export default {
           this.$store.commit('cart/add', updatedCart)
         } else {
           // if no item in cart, create cart object and put products in products array
-
           const newCart = addFirstProduct(this.product)
           this.$store.commit('cart/add', newCart)
         }

@@ -17,7 +17,7 @@ export default {
   },
   apollo: {
     product: {
-      query: gql` query Product($id: ID) {
+      query: gql` query Product($id: ID!) {
                     product(id: $id) {
                         id
                         productId
