@@ -1,6 +1,18 @@
 # woocommerce-restapi-nuxt
 
-E-commerce site with nuxtJs front-end and woo-coomerce rest api backend
+E-commerce site built with Nuxt.js, Vuetify.js, Woocommerce rest api, GraphQl.
+
+Features:
+
+=> All products shown in home page
+
+=> Product deails shown in invidual product page
+
+=> Products can be added to cart
+
+=> Cart can be updated
+
+=> Products can be deleted from cart
 
 ## Build Setup
 
