@@ -2,6 +2,7 @@
   <v-card
   class="cart"
   min-width="322px"
+  max-width="322px"
   >
 
     <div class="d-flex cart-header pa-2 align-center">
@@ -102,9 +103,4 @@ export default {
   --animate-delay: 100ms;
 }
 
-@media screen and (min-width: 1200px) {
-// .cart {
-//   min-width: 320px !important;
-// }
-}
 </style>

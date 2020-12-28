@@ -94,4 +94,3 @@ wooConfig.js
 .editorconfig
 .env
 client-config.js
-ApolloClient.js
