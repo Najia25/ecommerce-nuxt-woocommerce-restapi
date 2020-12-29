@@ -2,10 +2,6 @@
 
 E-commerce site built with Nuxt.js, Vuetify.js, Woocommerce rest api, GraphQl.
 
-# Live Demo
-
-https://ecommerce-nuxt-woocommerce-restapi-git-graphql-apollo.najia25.vercel.app/
-
 Features:
 
 => All products shown in home page
