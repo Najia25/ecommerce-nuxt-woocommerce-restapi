@@ -1,5 +1,5 @@
 const apolloConfig = {
-  siteUrl: 'http://localhost:3000',
-  graphqlUrl: 'http://localhost/wordpress/graphql'
+  siteUrl: process.env.BASE_URL,
+  graphqlUrl: process.env.GRAPHQL_URL
 }
-module.exports = apolloConfig ;
+module.exports = apolloConfig;
