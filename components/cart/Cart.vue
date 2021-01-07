@@ -30,8 +30,10 @@
       <button to="/" color="primary">Start shopping</button>
     </div>
 
-    <div class="cart-footer">
-      footer
+    <div class="d-flex cart-footer pa-2 align-center justify-center">
+      <div class="d-flex align-center">
+        <v-btn v-if="cart" color="primary">Place Order | {{cart.totalProductPrice}} taka</v-btn>
+      </div>
     </div>
   </v-card>
 </template>
@@ -75,7 +77,7 @@ export default {
   height: 5vh;
   z-index: 5;
   justify-content: space-between;
-  min-width: 320px;
+  min-width: 322px;
 
   p{
     font-weight: 500;
@@ -87,15 +89,16 @@ export default {
 .cart-body {
   padding-top: 5vh;
   overflow: auto;
-  height: 90vh;
-  padding-bottom: 5vh;
+  height: 87vh;
+  padding-bottom: 8vh;
 }
 
 .cart-footer {
   background: #eee;
   position: fixed;
-  height: 5vh;
+  height: 8vh;
   bottom: 0;
+  min-width: 322px;
 }
 
 .animate__animated.animate__slideInRight {

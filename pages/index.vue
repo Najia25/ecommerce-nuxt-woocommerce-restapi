@@ -1,15 +1,12 @@
 <template>
-  <v-row class="d-flex justify-center">
-    <v-col class="flex-wrap justify-center d-flex">
+  <v-row>
       <Product
         v-for="product in products"
         :key="product.id"
         :product="product"
       />
-    </v-col>
   </v-row>
 </template>
-
 <script>
 
 import Product from '@/components/content/Product'

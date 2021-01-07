@@ -1,8 +1,52 @@
 <template>
   <div>
     <div v-if="$apollo.queries.product.loading">...Loading</div>
-    <div v-else>{{ product }}</div>
 
+    <v-row v-else>
+      <div class="col-md-8 col-xl-6 col-12 offset-xl-1">
+        <div class="d-flex flex-column-reverse flex-md-row">
+          <v-tabs
+            v-model="tab"
+            hide-slider
+            :vertical="$vuetify.breakpoint.mdAndUp"
+            class="mr-md-5 mt-5 mt-md-0"
+          >
+            <v-tab
+              v-for="item in productGellaryImages"
+              :key="item.sourceUrl"
+              class="px-0 d-inline-block mb-5 mr-3"
+            >
+              <v-card
+                flat
+                rounded
+                link
+              >
+                <v-img
+                  :src="item.sourceUrl"
+                  max-height="60"
+                  max-width="60"
+                >
+                </v-img>
+              </v-card>
+            </v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="tab">
+            <v-tab-item
+              v-for="item in productGellaryImages"
+              :key="item.sourceUrl"
+              transition="none"
+              reverse-transition="none"
+            >
+              <v-card flat>
+              <v-img
+              :src="item.sourceUrl"></v-img>
+              </v-card>
+            </v-tab-item>
+          </v-tabs-items>
+        </div>
+      </div>
+    </v-row>
   </div>
 </template>
 
@@ -12,7 +56,15 @@ export default {
   data () {
     return {
       id: this.$route.params.slug.split('-').pop(),
-      product: null
+      product: null,
+      productGellaryImages: [],
+      tab: null,
+      length: 0
+    }
+  },
+  watch: {
+    length (val) {
+      this.tab = val - 1
     }
   },
   apollo: {
@@ -35,18 +87,37 @@ export default {
                             srcSet
                             sourceUrl
                         }
-                    }
-                  }`,
+                        galleryImages {
+                          nodes {
+                            sourceUrl
+                          }
+                        }
+                      }
+                    }`,
+      result ({ data }) {
+        this.productGellaryImages = data.product.galleryImages.nodes
+        this.length = data.product.galleryImages.nodes.length
+      },
       variables () {
         return {
           id: this.$route.params.slug.split('-').pop()
         }
       },
     }
+  },
+  mounted () {
+    console.log(`Product: ${this.product}`)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.v-tab {
+  min-width: 60px !important;
+  max-width: 60px !important;
+  height: 60px;
+}
+.v-tabs--vertical > .v-tabs-bar .v-tab {
+  height: 60px;
+}
 </style>

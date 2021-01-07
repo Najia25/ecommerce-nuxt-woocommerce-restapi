@@ -10,7 +10,7 @@
       >
       <Cart v-if="isOpen" @cart-closed="isOpen = false"/>
       </transition>
-      <v-container fluid :class="{'cart-padding': isOpen}">
+      <v-container>
         <nuxt />
       </v-container>
     </v-main>
