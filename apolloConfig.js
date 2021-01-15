@@ -1,4 +1,4 @@
 const apolloConfig = {
-  graphqlUrl: 'http://localhost/wordpress/graphql'
+  graphqlUrl: process.env.GRAPHQL_URL
 }
 module.exports = apolloConfig;
