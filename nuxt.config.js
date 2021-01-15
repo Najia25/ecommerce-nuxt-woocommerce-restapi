@@ -89,10 +89,10 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   // serverMiddleware: ['~/api/index'],
-  publicRuntimeConfig: {
-    baseUrl: process.env.BASE_URL,
-    graphqlUrl: process.env.GRAPHQL_URL
-  },
+  // publicRuntimeConfig: {
+  //   baseUrl: process.env.BASE_URL,
+  //   graphqlUrl: process.env.GRAPHQL_URL
+  // },
   build: {
   }
 }
