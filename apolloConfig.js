@@ -1,4 +1,4 @@
 const apolloConfig = {
-  graphqlUrl: process.env.GRAPHQL_URL
+  graphqlUrl: 'https://ecommerce.najiaafrin.com/graphql'
 }
 module.exports = apolloConfig;
