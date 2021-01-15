@@ -1,5 +1,5 @@
 const clientConfig = {
   // siteUrl: process.env.BASE_URL,
-  graphqlUrl: process.env.GRAPHQL_URL
+  graphqlUrl: 'http://localhost/wordpress/graphql'
 }
 export default clientConfig

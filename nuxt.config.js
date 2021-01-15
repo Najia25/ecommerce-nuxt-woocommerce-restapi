@@ -2,6 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   target: 'static',
+  ssr: false,
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head

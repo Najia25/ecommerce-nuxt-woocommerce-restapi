@@ -10,11 +10,12 @@
             hide-slider
             :vertical="$vuetify.breakpoint.mdAndUp"
             class="mr-md-5 mt-5 mt-md-0"
+            :height="$vuetify.breakpoint.mdAndUp ? undefined : 60"
           >
             <v-tab
               v-for="item in productGellaryImages"
               :key="item.sourceUrl"
-              class="px-0 d-inline-block mb-5 mr-3"
+              class="px-0 mb-5 mr-2 mr-md-0"
             >
               <v-card
                 flat
@@ -112,6 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .v-tab {
   min-width: 60px !important;
   max-width: 60px !important;
@@ -120,4 +122,5 @@ export default {
 .v-tabs--vertical > .v-tabs-bar .v-tab {
   height: 60px;
 }
+
 </style>
