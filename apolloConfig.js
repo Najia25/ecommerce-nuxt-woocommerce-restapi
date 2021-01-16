@@ -1,4 +1,4 @@
 const apolloConfig = {
-  graphqlUrl: process.env.GRAPHQL_URL
+  graphqlUrl: process.env.graphqlUrl
 }
 module.exports = apolloConfig;

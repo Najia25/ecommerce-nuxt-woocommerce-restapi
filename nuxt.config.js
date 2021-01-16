@@ -2,6 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   target: 'static',
+  env: {
+    graphqlUrl: process.env.GRAPHQL_URL || 'http://localhost/wordpress/graphql'
+  },
   ssr: false,
   /*
   ** Headers of the page
