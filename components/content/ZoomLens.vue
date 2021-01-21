@@ -1,6 +1,5 @@
 <template>
-  <div class='zoom-lens'>
-    dfdsfds
+  <div class='zoom-lens rounded'>
   </div>
 </template>
 
@@ -11,8 +10,10 @@ export default {
 
 <style lang="scss" scoped>
 .zoom-lens{
-  position: relative;
+  position: absolute;
   height: 648px;
   width: 519px;
+  background: blue;
+  transform: translateX(600px);
 }
 </style>

@@ -1,11 +1,14 @@
 <template>
-  <v-row>
+<div>
+  <div v-if="$apollo.queries.products.loading">...Loading</div>
+    <v-row v-else>
       <Product
         v-for="product in products"
         :key="product.id"
         :product="product"
       />
-  </v-row>
+    </v-row>
+  </div>
 </template>
 <script>
 

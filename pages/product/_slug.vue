@@ -37,26 +37,31 @@
               <v-tab-item
                 v-for="item in productGellaryImages"
                 :key="item.sourceUrl"
+                ref="item"
                 transition="none"
                 reverse-transition="none"
               >
-                <v-card
-                  flat
-                  max-width="500"
-                >
-                  <v-img
-                  :src="item.sourceUrl"
-                  @mouseover="hover = true"
-                  @mouseleave="hover = false"
+                <div
                   class="product-img"
-                  >
-                    <div class="lens" v-if="hover" :style="{ transform: `translate(${xPos}px, ${yPos}px)`}"></div>
-                  </v-img>
-                </v-card>
+                >
+                  <img
+                    :src="item.sourceUrl"
+                    class="rounded"
+                  />
+                  <div
+                    class="lens"
+                    v-if="hover"
+                    ref="lens"
+                    :style="{ transform: `translate(${calculatedLensPos.x}px, ${calculatedLensPos.y}px)`}"
+                  ></div>
+                </div>
               </v-tab-item>
             </v-tabs-items>
           </div>
           <zoom-lens v-if="hover"></zoom-lens>
+          <div class="product-detail">
+            product description
+          </div>
         </div>
       </div>
     </v-row>
@@ -78,13 +83,43 @@ export default {
       tab: null,
       length: 0,
       hover: false,
-      xPos: 0,
-      yPos: 0
+      cursorPos: {
+        x: 0,
+        y: 0
+      }
     }
   },
   watch: {
     length (val) {
       this.tab = val - 1
+    }
+  },
+  computed: {
+    calculatedLensPos () {
+      console.warn(this.$refs.lens)
+      if(this.hover)
+      return {
+        x: this.cursorPos.x - (this.$refs.lens.clientWidth / 2),
+        y: this.cursorPos.y - (this.$refs.lens.clientHeight / 2)
+      }
+      else {
+        return {
+          x: 0,
+          y: 0
+        }
+      }
+    }
+  },
+  mounted () {
+    console.log(`Product: ${this.product}`)
+  },
+  methods: {
+    handleMouseMove (event) {
+      this.hover = true
+      console.warn(this.$refs.productImg)
+      this.cursorPos.x = event.pageX - this.$refs.productImg.getBoundingClientRect.left
+      this.cursorPos.y = event.pageY - this.$refs.productImg.getBoundingClientRect.top
+
     }
   },
   apollo: {
@@ -124,9 +159,6 @@ export default {
         }
       },
     }
-  },
-  mounted () {
-    console.log(`Product: ${this.product}`)
   }
 }
 </script>
@@ -145,7 +177,12 @@ export default {
 .product-img {
   position: relative;
   cursor: move;
+
+  img {
+    max-width: 500px;
+  }
 }
+
 
 .lens {
   position: absolute;
