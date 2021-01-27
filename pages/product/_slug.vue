@@ -7,7 +7,6 @@
         <div class="d-flex flex-column flex-md-row align-sm-center align-md-start">
           <div class="d-flex flex-column-reverse flex-md-row mr-md-5">
             <v-tabs
-              v-model="tab"
               hide-slider
               :vertical="$vuetify.breakpoint.mdAndUp"
               class="mr-md-5 mt-5 mt-md-0"
@@ -27,38 +26,40 @@
                     :src="item.sourceUrl"
                     max-height="60"
                     max-width="60"
+                    @click="sourceUrl = item.sourceUrl"
                   >
                   </v-img>
                 </v-card>
               </v-tab>
             </v-tabs>
 
-            <v-tabs-items v-model="tab">
-              <v-tab-item
-                v-for="item in productGellaryImages"
-                :key="item.sourceUrl"
-                ref="item"
-                transition="none"
-                reverse-transition="none"
-              >
                 <div
                   class="product-img"
                 >
                   <img
-                    :src="item.sourceUrl"
+                    :src="sourceUrl"
                     class="rounded"
+                    ref="productImg"
+                    @mousemove="handleMouseMove($event)"
+                    @mouseleave="hover = false"
                   />
                   <div
                     class="lens"
-                    v-if="hover"
                     ref="lens"
-                    :style="{ transform: `translate(${calculatedLensPos.x}px, ${calculatedLensPos.y}px)`}"
+                    :style="{transform: `translate(${lensPos.x}px, ${lensPos.y}px)`, height: `${lensHeight}px`, width: `${lensWidth}px`, visibility: hover ? 'visible' : 'hidden'}"
+                    @mousemove="handleMouseMove($event)"
+                    @mouseleave="hover = false"
                   ></div>
-                </div>
-              </v-tab-item>
-            </v-tabs-items>
+            </div>
           </div>
-          <zoom-lens v-if="hover"></zoom-lens>
+          <zoom-lens
+            v-if="hover"
+            :ratio="zoomRatio"
+            :imgUrl="sourceUrl"
+            :height="$refs.productImg.clientHeight"
+            :width="$refs.productImg.clientWidth"
+            :lensPos="lensPos"
+          ></zoom-lens>
           <div class="product-detail">
             product description
           </div>
@@ -80,46 +81,41 @@ export default {
       id: this.$route.params.slug.split('-').pop(),
       product: null,
       productGellaryImages: [],
-      tab: null,
       length: 0,
       hover: false,
+      sourceUrl: '',
       cursorPos: {
         x: 0,
         y: 0
-      }
+      },
+      lensPos: {
+        x: 0,
+        y: 0
+      },
+      lensHeight: 127,
+      lensWidth: 100,
+      zoomRatio: 3
     }
-  },
-  watch: {
-    length (val) {
-      this.tab = val - 1
-    }
-  },
-  computed: {
-    calculatedLensPos () {
-      console.warn(this.$refs.lens)
-      if(this.hover)
-      return {
-        x: this.cursorPos.x - (this.$refs.lens.clientWidth / 2),
-        y: this.cursorPos.y - (this.$refs.lens.clientHeight / 2)
-      }
-      else {
-        return {
-          x: 0,
-          y: 0
-        }
-      }
-    }
-  },
-  mounted () {
-    console.log(`Product: ${this.product}`)
   },
   methods: {
     handleMouseMove (event) {
       this.hover = true
-      console.warn(this.$refs.productImg)
-      this.cursorPos.x = event.pageX - this.$refs.productImg.getBoundingClientRect.left
-      this.cursorPos.y = event.pageY - this.$refs.productImg.getBoundingClientRect.top
-
+      this.cursorPos.x = event.pageX - this.$refs.productImg.getBoundingClientRect().left
+      this.cursorPos.y = event.pageY - this.$refs.productImg.getBoundingClientRect().top
+      this.lensPos.x = this.cursorPos.x - (this.lensWidth / 2)
+      this.lensPos.y = this.cursorPos.y - (this.lensHeight / 2)
+      if(this.lensPos.x < 0) {
+        this.lensPos.x = 0
+      }
+      if(this.lensPos.y < 0) {
+        this.lensPos.y = 0
+      }
+      if(this.lensPos.x >  this.$refs.productImg.clientWidth - this.lensWidth) {
+        this.lensPos.x = this.$refs.productImg.clientWidth - this.lensWidth
+      }
+      if(this.lensPos.y > this.$refs.productImg.clientHeight - this.lensHeight) {
+        this.lensPos.y = this.$refs.productImg.clientHeight - this.lensHeight
+      }
     }
   },
   apollo: {
@@ -137,10 +133,10 @@ export default {
                           }
                         name
                         image {
-                            uri
-                            title
-                            srcSet
-                            sourceUrl
+                          uri
+                          title
+                          srcSet
+                          sourceUrl
                         }
                         galleryImages {
                           nodes {
@@ -150,8 +146,9 @@ export default {
                       }
                     }`,
       result ({ data }) {
-        this.productGellaryImages = data.product.galleryImages.nodes
-        this.length = data.product.galleryImages.nodes.length
+        let images = data.product.galleryImages.nodes
+        this.productGellaryImages = [{ sourceUrl: data.product.image.sourceUrl },...images]
+        this.sourceUrl = data.product.image.sourceUrl
       },
       variables () {
         return {
@@ -186,8 +183,6 @@ export default {
 
 .lens {
   position: absolute;
-  height: 127px;
-  width: 100px;
   background: rgba(124, 181, 237, 0.52);
   top:0;
   left:0;
