@@ -46,18 +46,18 @@
                   <div
                     class="lens"
                     ref="lens"
-                    :style="{transform: `translate(${lensPos.x}px, ${lensPos.y}px)`, height: `${lensHeight}px`, width: `${lensWidth}px`, visibility: hover ? 'visible' : 'hidden'}"
+                    :style="{transform: `translate(${lensPos.x}px, ${lensPos.y}px)`, height: `${lensHeight}px`, width: `${lensWidth}px`, visibility: hover ? 'visible' : 'hidden', willChange: 'transform', pointerEvents: 'none', zIndex: '1000'}"
                     @mousemove="handleMouseMove($event)"
                     @mouseleave="hover = false"
                   ></div>
             </div>
           </div>
           <zoom-lens
-            v-if="hover"
+            v-show="hover"
             :ratio="zoomRatio"
             :imgUrl="sourceUrl"
-            :height="$refs.productImg.clientHeight"
-            :width="$refs.productImg.clientWidth"
+            :height="hover && $refs.productImg.clientHeight"
+            :width="hover && $refs.productImg.clientWidth"
             :lensPos="lensPos"
           ></zoom-lens>
           <div class="product-detail">

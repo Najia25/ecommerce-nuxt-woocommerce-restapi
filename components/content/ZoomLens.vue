@@ -17,5 +17,6 @@ export default {
   width: 519px;
   transform: translateX(600px);
   overflow: hidden;
+  will-change: transform;
 }
 </style>
