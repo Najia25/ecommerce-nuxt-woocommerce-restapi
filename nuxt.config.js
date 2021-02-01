@@ -34,7 +34,8 @@ export default {
   */
   plugins: [
     '~plugins/breakpoint.js',
-    '~plugins/cartData.client.js'
+    '~plugins/cartData.client.js',
+    '~/plugins/vue-placeholders.js',
   ],
   /*
   ** Auto import components
